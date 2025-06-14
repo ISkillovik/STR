@@ -30,10 +30,10 @@ const AbUsh = styled.h1`
   color: #fff;
   z-index: 10;
   text-align: center;
-  font-size: clamp(50px, 3vw, 60px);
+
   text-transform: uppercase;
   line-height: 100px;
-  position: absolute;
+
   width: 100%;
   bottom: 690px;
 `;
