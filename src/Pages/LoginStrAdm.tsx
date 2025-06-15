@@ -2,8 +2,30 @@ import { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import EventControle from "../components/EventContole";
+import styled from "styled-components";
 
 type Props = {};
+
+const LogContain = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+`;
+
+const LogINput = styled.input`
+  padding: 5px;
+  font-size: 16px;
+  margin: 20px 0;
+  height: 40px;
+  width: 300px;
+`;
+
+const LogBtn = styled.button`
+  margin: 20px 0;
+  height: 40px;
+  width: 300px;
+`;
 
 const LoginStrAdm = (props: Props) => {
   const [email, setEmail] = useState<string>("");
@@ -41,22 +63,22 @@ const LoginStrAdm = (props: Props) => {
       {userAuth ? (
         <EventControle />
       ) : (
-        <>
-          <input
+        <LogContain>
+          <LogINput
             value={email}
             type="mail"
             placeholder="Mail"
             onChange={(e) => setEmail(e.target.value)}
-          ></input>
+          ></LogINput>
 
-          <input
+          <LogINput
             value={pass}
             type="password"
             placeholder="Pass"
             onChange={(e) => setPass(e.target.value)}
-          ></input>
-          <button onClick={() => handleLogin(email, pass)}>LOGIN</button>
-        </>
+          ></LogINput>
+          <LogBtn onClick={() => handleLogin(email, pass)}>LOGIN</LogBtn>
+        </LogContain>
       )}
     </>
   );
