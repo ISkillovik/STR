@@ -12,21 +12,14 @@ import { auth } from "../firebase";
 import { doc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { useTheme } from "@mui/material/styles";
-import Tab, { tabClasses } from "@mui/material/Tab";
+import Tab from "@mui/material/Tab";
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import RacerListPoints from "./RacerListPoints";
-
+import { TabPanelProps } from "../models";
 type Props = {};
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  dir?: string;
-  index: number;
-  value: number;
-}
 
 const InputAdm = styled.input`
   font-size: 20px;

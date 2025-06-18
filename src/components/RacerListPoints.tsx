@@ -2,24 +2,46 @@ import { useState, useEffect } from "react";
 import { doc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import styled from "styled-components";
-
+import { DataRacers } from "../models";
 type Props = {};
 
-interface DataRacers {
-  number: {
-    carColor: string;
-    carHp: string;
-    carMark: string;
-    carNum: string;
-    group: string;
-    motor: string;
-    point: number;
-    racerName: string;
-  };
-}
+const RacerDiv = styled.div`
+  margin: 10px;
+  background-color: black;
+  border: solid 1px red;
+  display: flex;
+  justify-content: space-between;
+  button {
+    width: 100px;
+  }
+  input {
+    width: 250px;
+    height: 50px;
+  }
+`;
+
+const RacerDivInfo = styled.div`
+  padding: 5px;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  p {
+    font-size: 24px;
+    color: aliceblue;
+  }
+`;
 
 const RacerListPoints = (props: Props) => {
+  const [point, setPoint] = useState<{ [key: string]: number | undefined }>({});
   const [data, setData] = useState<DataRacers>();
+
+  const handleChange = (key: string, newValue: string) => {
+    setPoint((prev) => ({
+      ...prev,
+      [key]: newValue === "" ? undefined : Number(newValue),
+    }));
+  };
+
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
       if (docSnapshot.exists()) {
@@ -36,11 +58,23 @@ const RacerListPoints = (props: Props) => {
     <div>
       {data
         ? Object.entries(data).map(([key, value]) => (
-            <div key={key}>
-              <p>{key}</p>
-              <br />
-              <p>{`${value.age}`}</p>
-            </div>
+            <RacerDiv key={key}>
+              <RacerDivInfo>
+                <p>{key}</p>
+                <p>{value.racerName}</p>
+                <p>{value.carMark}</p>
+                <p>{value.motor}</p>
+                <p>{value.point}</p>
+              </RacerDivInfo>
+
+              <input
+                type="number"
+                value={point[key] ?? ""}
+                placeholder="SET POINT"
+                onChange={(e) => handleChange(key, e.target.value)}
+              />
+              <button>SET</button>
+            </RacerDiv>
           ))
         : "load"}
     </div>
