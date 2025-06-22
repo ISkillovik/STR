@@ -19,7 +19,6 @@ const TransBoxBorder = styled.div`
   align-items: center;
   left: 150px;
   margin-top: 103px;
-
   width: 100%;
   background: #171717;
   clip-path: polygon(0 107px, 100% 0, 100% 100%, 0% 100%);
@@ -30,10 +29,8 @@ const AbUsh = styled.h1`
   color: #fff;
   z-index: 10;
   text-align: center;
-
   text-transform: uppercase;
   line-height: 100px;
-
   width: 100%;
   bottom: 690px;
 `;

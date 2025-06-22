@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import LiveEventNav from "../components/LiveEvent/LiveEventNav";
 const LiveEventContain = styled.div`
-  height: 92vh;
+  height: 100%;
 `;
 
 const LiveEventTitleDiv = styled.div`

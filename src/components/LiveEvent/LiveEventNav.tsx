@@ -3,6 +3,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import LiveEventScore from "./LiveEventScore";
+import LiveEventRules from "./LiveEventRules";
+import LiveEventLiveYouTube from "./LiveEventLiveYouTube";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -97,13 +99,13 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Live
+        <LiveEventLiveYouTube />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <LiveEventScore />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Rules
+        <LiveEventRules />
       </CustomTabPanel>
     </Box>
   );

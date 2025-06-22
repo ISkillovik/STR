@@ -42,6 +42,16 @@ const RacerListPoints = (props: Props) => {
     }));
   };
 
+  const handleUpdateRacersPoints = async (pilotId: any) => {
+    const userRef = doc(db, "Admin", "event");
+    try {
+      await setDoc(userRef, { eventRacers: pilotId }, { merge: true });
+      console.log("Имя обновлено");
+    } catch (error) {
+      console.error("Ошибка при обновлении:", error);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
       if (docSnapshot.exists()) {
@@ -60,7 +70,9 @@ const RacerListPoints = (props: Props) => {
         ? Object.entries(data).map(([key, value]) => (
             <RacerDiv key={key}>
               <RacerDivInfo>
-                <p>{key}</p>
+                <div>
+                  <p>{key}</p>
+                </div>
                 <p>{value.racerName}</p>
                 <p>{value.carMark}</p>
                 <p>{value.motor}</p>
@@ -73,7 +85,16 @@ const RacerListPoints = (props: Props) => {
                 placeholder="SET POINT"
                 onChange={(e) => handleChange(key, e.target.value)}
               />
-              <button>SET</button>
+              <button
+                onClick={() => {
+                  const obj: any = {
+                    [key]: { point: value.point + point[key] },
+                  };
+                  handleUpdateRacersPoints(obj);
+                }}
+              >
+                SET
+              </button>
             </RacerDiv>
           ))
         : "load"}
