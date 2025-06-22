@@ -5,6 +5,7 @@ import styled from "styled-components";
 import LiveEventNav from "../components/LiveEvent/LiveEventNav";
 import { useNavigate } from "react-router-dom";
 const LiveEventContain = styled.div`
+  min-height: 800px;
   height: 100%;
 `;
 

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import liceIcon from "../icon/live-stream.png";
 import icoStr from "../icon/strlogo.png";
@@ -19,6 +19,7 @@ import Tab, { tabClasses } from "@mui/material/Tab";
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "../firebase";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const IcoLive = styled.img`
   width: 50px;
@@ -41,7 +42,7 @@ const NavDiv = styled.div`
 const NavElemStyle = styled.nav`
   display: flex;
   gap: 20px;
-  margin-left: auto; // 🔥 ключевой момент
+  margin-left: auto;
   align-items: center;
 `;
 
@@ -67,6 +68,7 @@ const NavLinkStyle = styled(NavLink)`
 
 const NavMenu = () => {
   const [value, setValue] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [liveEv, setLiveEv] = useState<boolean | undefined>();
   const theme = useTheme();
@@ -76,13 +78,18 @@ const NavMenu = () => {
     setDrawerOpen(open);
   };
 
-  const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
-    if (docSnapshot.exists()) {
-      setLiveEv(docSnapshot.data().event);
-    } else {
-      console.log("Document does not exist");
-    }
-  });
+  useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        setLiveEv(docSnapshot.data().event);
+      } else {
+        console.log("Document does not exist");
+      }
+      setLoading(false); // ✅ снимаем загрузку
+    });
+
+    return () => unsubscribe(); // очистка подписки
+  }, []);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
