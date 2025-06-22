@@ -19,6 +19,7 @@ import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import RacerListPoints from "./RacerListPoints";
 import { TabPanelProps } from "../models";
+import { DataRacers } from "../models";
 type Props = {};
 
 const InputAdm = styled.input`
@@ -57,12 +58,31 @@ function a11yProps(index: number) {
 
 const EventStartName = (props: Props) => {
   const [eventTitle, setEventTitle] = useState("");
-  const [rules, setRules] = useState("");
   const [checked, setChecked] = useState(false);
   const [data, setData] = useState<any>();
-  const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();
   const [value, setValue] = useState(0);
+  const [dataType, setDataType] = useState<string>();
+
+  const checkCheckbox = (text: string): boolean => {
+    if (dataType && dataType === text) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        return setDataType(docSnapshot.data().rules);
+      } else {
+        console.log("Document does not exist");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleChanges = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -189,11 +209,17 @@ const EventStartName = (props: Props) => {
               }}
             >
               <FormControlLabel
+                checked={checkCheckbox("drift")}
                 value="drift"
                 control={<Radio />}
                 label="Drift"
               />
-              <FormControlLabel value="drag" control={<Radio />} label="Drag" />
+              <FormControlLabel
+                checked={checkCheckbox("drag")}
+                value="drag"
+                control={<Radio />}
+                label="Drag"
+              />
               <FormControlLabel
                 value="other"
                 control={<Radio />}

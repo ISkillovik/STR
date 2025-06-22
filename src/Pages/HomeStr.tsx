@@ -62,20 +62,9 @@ const GlobalDiv = styled.div`
   background-color: rgb(23 23 23);
 `;
 
-const FootDiv = styled.div`
-  display: flex;
-  justify-content: space-around;
-  padding: 0px 20px 60px 20px;
-`;
-
 const HomeStr = () => {
   return (
     <GlobalDiv>
-      {/* <WelcomStrTextContainer>
-        <TextH1>Բարի գալուստ մեր պաշտոնական կայք</TextH1>
-        <TextH1></TextH1>
-      </WelcomStrTextContainer> */}
-
       <IntroVideo />
       <TransBox>
         <TransBoxBorder>
@@ -96,13 +85,6 @@ const HomeStr = () => {
           <SponsorIco src={IcoStrRac} alt="StrR" />
         </IcoDiv>
       </SponsorIcoContainer>
-      <FootDiv>
-        <p>
-          Հեղինակային իրավունքները © 2021 «Էս Թի Ար» ակումբ ՀԿ։ Բոլոր
-          իրավունքները պաշտպանված են:
-        </p>
-        <p>Դիզայնը և պատրաստումը՝ «A.B.»</p>
-      </FootDiv>
     </GlobalDiv>
   );
 };

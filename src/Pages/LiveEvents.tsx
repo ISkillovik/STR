@@ -3,12 +3,16 @@ import { db } from "../firebase";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import LiveEventNav from "../components/LiveEvent/LiveEventNav";
+import { useNavigate } from "react-router-dom";
 const LiveEventContain = styled.div`
   height: 100%;
 `;
 
 const LiveEventTitleDiv = styled.div`
   margin-top: 30px;
+  h1 {
+    color: white;
+  }
 `;
 
 type Props = {};
@@ -16,6 +20,12 @@ type Props = {};
 const LiveEvents = (props: Props) => {
   const [event, setEvent] = useState<boolean | null>(null);
   const [eventTitle, setEventTitle] = useState<string>("");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (event === false) {
+      navigate("/");
+    }
+  }, [event]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
@@ -39,9 +49,7 @@ const LiveEvents = (props: Props) => {
           </LiveEventTitleDiv>
           <LiveEventNav />
         </>
-      ) : (
-        <div> no event</div>
-      )}
+      ) : null}
     </LiveEventContain>
   );
 };

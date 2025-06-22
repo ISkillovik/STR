@@ -4,6 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import liceIcon from "../icon/live-stream.png";
 import icoStr from "../icon/strlogo.png";
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 import {
   Typography,
   AppBar,
@@ -28,11 +29,46 @@ const IcoStr = styled.img`
   width: 200px;
   padding-top: 20px;
 `;
+const NavDiv = styled.div`
+  display: flex;
+  width: 100%;
+  height: 80px;
+  background: "#000000";
+  color: "#ffffff";
+  position: static;
+`;
+
+const NavElemStyle = styled.nav`
+  display: flex;
+  gap: 20px;
+  margin-left: auto; // 🔥 ключевой момент
+  align-items: center;
+`;
+
+const NavLinkStyle = styled(NavLink)`
+  margin-right: 25px;
+  display: flex;
+  gap: 8px;
+  padding: 6px 12px;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  height: 50px;
+  align-items: center;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  &.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+`;
 
 const NavMenu = () => {
   const [value, setValue] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [liveEv, setLiveEv] = useState(false);
+  const [liveEv, setLiveEv] = useState<boolean | undefined>();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
@@ -123,155 +159,50 @@ const NavMenu = () => {
             </>
           ) : (
             <>
-              <AppBar
-                sx={{
-                  height: 80,
-                  background: "#000000",
-                  color: "#ffffff",
-                }}
-                position="static"
-              >
-                <Toolbar
+              <NavDiv>
+                <Box
                   sx={{
+                    zIndex: "10",
+                    position: "relative",
+                    boxShadow: "10px 5px 5px black",
+                    width: 300,
+                    height: 100,
+                    backgroundColor: "#171717",
+                    transform: "skewX(-30deg)",
+                    transformOrigin: "100% -100%",
                     display: "flex",
-                    justifyContent: "space-between",
                     alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
                   }}
                 >
-                  <Box
-                    sx={{
-                      zIndex: "10",
-                      position: "relative",
-                      boxShadow: "10px 5px 5px black",
-                      width: 300,
-                      height: 100,
-                      backgroundColor: "#171717",
-                      transform: "skewX(-30deg)",
-                      transformOrigin: "100% -100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      overflow: "hidden",
+                  <Typography
+                    onClick={() => {
+                      navigate("/");
+                      setValue(0);
                     }}
+                    sx={{
+                      transform: "skewX(30deg)",
+                    }}
+                    variant="h6"
+                    component="div"
                   >
-                    <Typography
-                      onClick={() => {
-                        navigate("/");
-                        setValue(0);
-                      }}
-                      sx={{
-                        transform: "skewX(30deg)",
-                      }}
-                      variant="h6"
-                      component="div"
-                    >
-                      <IcoStr src={icoStr} alt="My Icon" />
-                    </Typography>
-                  </Box>
+                    <IcoStr src={icoStr} alt="My Icon" />
+                  </Typography>
+                </Box>
+                <NavElemStyle>
+                  {liveEv ? (
+                    <NavLinkStyle to="/liveevents">
+                      <IcoLive src={liceIcon} alt="My Icon" /> LIVE
+                    </NavLinkStyle>
+                  ) : (
+                    ""
+                  )}
 
-                  <Tabs
-                    sx={{
-                      [`& .${tabsClasses.indicator}`]: {
-                        height: "100%",
-                        borderRadius: "8px",
-                        backgroundColor: "rgba(255, 255, 255, .2)",
-                      },
-                    }}
-                    value={value}
-                    onChange={handleChange}
-                    centered
-                  >
-                    {liveEv ? (
-                      <Tab
-                        sx={{
-                          [`&.${tabClasses.selected}`]: {
-                            color: "#fff",
-                          },
-                          "&:hover": {
-                            borderRadius: "8px",
-                            backgroundColor: "rgba(255, 255, 255, .2)",
-                          },
-                          color: "#ffffff",
-                        }}
-                        icon={<IcoLive src={liceIcon} alt="My Icon" />}
-                        iconPosition="start"
-                        component={Link}
-                        to="/liveevents"
-                        label="Event"
-                      />
-                    ) : (
-                      <></>
-                    )}
-                    <Tab
-                      sx={{
-                        letterSpacing: 0.5,
-                        margin: theme.spacing(0, 2),
-                        [`&.${tabClasses.selected}`]: {
-                          color: "#fff",
-                        },
-                        "&:hover": {
-                          borderRadius: "8px",
-                          backgroundColor: "rgba(255, 255, 255, .2)",
-                        },
-                        color: "#ffffff",
-                      }}
-                      component={Link}
-                      to="/about"
-                      label="About"
-                    />
-                    <Tab
-                      sx={{
-                        letterSpacing: 0.5,
-                        margin: theme.spacing(0, 2),
-                        [`&.${tabClasses.selected}`]: {
-                          color: "#fff",
-                        },
-                        "&:hover": {
-                          borderRadius: "8px",
-                          backgroundColor: "rgba(255, 255, 255, .2)",
-                        },
-                        color: "#ffffff",
-                      }}
-                      component={Link}
-                      to="/about"
-                      label="Rules"
-                    />
-                    <Tab
-                      sx={{
-                        letterSpacing: 0.5,
-                        margin: theme.spacing(0, 2),
-                        [`&.${tabClasses.selected}`]: {
-                          color: "#fff",
-                        },
-                        "&:hover": {
-                          borderRadius: "8px",
-                          backgroundColor: "rgba(255, 255, 255, .2)",
-                        },
-                        color: "#ffffff",
-                      }}
-                      component={Link}
-                      to="/about"
-                      label="Records"
-                    />
-                    <Tab
-                      sx={{
-                        marginRig: 3,
-                        [`&.${tabClasses.selected}`]: {
-                          color: "#fff",
-                        },
-                        "&:hover": {
-                          borderRadius: "8px",
-                          backgroundColor: "rgba(255, 255, 255, .2)",
-                        },
-                        color: "#ffffff",
-                      }}
-                      component={Link}
-                      to="/racers"
-                      label="Racers"
-                    />
-                  </Tabs>
-                </Toolbar>
-              </AppBar>
+                  <NavLinkStyle to="/about"> ABOUT</NavLinkStyle>
+                  <NavLinkStyle to="/racers">RACERS</NavLinkStyle>
+                </NavElemStyle>
+              </NavDiv>
             </>
           )}
         </Toolbar>
