@@ -99,7 +99,10 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <LiveEventLiveYouTube />
+        <LiveEventLiveYouTube
+          videoId="36YnV9STBqc?si=EZU2q8Zqk7LyrRdL"
+          title=" Прямая трансляция"
+        />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <LiveEventScore />
