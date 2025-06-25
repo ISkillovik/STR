@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import LiveEventScore from "./LiveEventScore";
 import LiveEventRules from "./LiveEventRules";
 import LiveEventLiveYouTube from "./LiveEventLiveYouTube";
+import ScoreTest from "./ScoreTest";
 
 interface TabPanelProps {
   children?: React.ReactNode;

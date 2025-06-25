@@ -3,6 +3,7 @@ import { IoLogoInstagram, IoLocationSharp } from "react-icons/io5";
 import { FaFacebookF } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 import { MdOutlinePhoneAndroid } from "react-icons/md";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 export interface DataRacers {
   number: {
@@ -23,6 +24,13 @@ export interface TabPanelProps {
   index: number;
   value: number;
 }
+
+export const FiChevronDownIco = FiChevronDown as unknown as React.FC<
+  React.SVGProps<SVGSVGElement>
+>;
+export const FiChevronUpIco = FiChevronUp as unknown as React.FC<
+  React.SVGProps<SVGSVGElement>
+>;
 
 export const TfiYoutubeIco = TfiYoutube as unknown as React.FC<
   React.SVGProps<SVGSVGElement>

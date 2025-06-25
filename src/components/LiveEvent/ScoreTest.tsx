@@ -5,30 +5,26 @@ import { DataRacers } from "../../models";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 
-const ExtraContent = styled(motion.div)`
-  width: 100%;
-  background: #1a1a1a;
-  border-radius: 6px;
-  padding: 10px 20px;
-  margin-top: 8px;
-  color: white;
-  font-size: 16px;
-
-  @media (max-width: 600px) {
-    font-size: 14px;
-  }
-`;
-
 const RacerDiv = styled(motion.div)`
   align-items: center;
   width: 100%;
   margin: 5px 0;
-  padding: 5px 0;
+  padding: 10px 0;
   background-color: #00000081;
   border-radius: 6px;
-  border: solid 2px #000000;
+  border: solid 1px red;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  cursor: pointer;
+
+  /* Убираем этот блок, чтобы всегда был горизонтальный список */
+  /*
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  */
 `;
 
 const RacersListUL = styled.ul`
@@ -45,8 +41,7 @@ const RacersListUL = styled.ul`
   }
 
   li::before {
-    padding-top: 8px;
-    margin-left: 5px;
+    padding-top: 15px;
     counter-increment: item;
     content: counter(item) ".";
     position: absolute;
@@ -60,9 +55,13 @@ const RacersListUL = styled.ul`
 const ExampDetails = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: solid 1px red;
+  border-bottom: solid 2px red;
   padding: 10px 0;
   margin-bottom: 5px;
+
+  @media (max-width: 600px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const Column = styled.p`
@@ -80,9 +79,23 @@ const Column = styled.p`
   }
 `;
 
+const ExtraContent = styled(motion.div)`
+  width: 100%;
+  background: #1a1a1a;
+  border-radius: 6px;
+  padding: 10px 20px;
+  margin-top: 8px;
+  color: white;
+  font-size: 16px;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+  }
+`;
+
 type Props = {};
 
-const LiveEventScore = (props: Props) => {
+const ScoreTest = (props: Props) => {
   const [data, setData] = useState<DataRacers>();
   const [dataType, setDataType] = useState<string>();
   const [openKey, setOpenKey] = useState<string | null>(null);
@@ -94,10 +107,11 @@ const LiveEventScore = (props: Props) => {
       return <Column>Points</Column>;
     }
   };
+
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
       if (docSnapshot.exists()) {
-        return setDataType(docSnapshot.data().rules);
+        setDataType(docSnapshot.data().rules);
       } else {
         console.log("Document does not exist");
       }
@@ -109,7 +123,7 @@ const LiveEventScore = (props: Props) => {
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
       if (docSnapshot.exists()) {
-        return setData(docSnapshot.data().eventRacers);
+        setData(docSnapshot.data().eventRacers);
       } else {
         console.log("Document does not exist");
       }
@@ -125,6 +139,7 @@ const LiveEventScore = (props: Props) => {
   const toggleOpen = (key: string) => {
     setOpenKey((prev) => (prev === key ? null : key));
   };
+
   return (
     <div style={{ width: "95%", margin: "0 auto", minHeight: "500px" }}>
       <ExampDetails>
@@ -188,4 +203,4 @@ const LiveEventScore = (props: Props) => {
   );
 };
 
-export default LiveEventScore;
+export default ScoreTest;

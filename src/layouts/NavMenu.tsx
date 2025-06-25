@@ -44,6 +44,11 @@ const NavElemStyle = styled.nav`
   gap: 20px;
   margin-left: auto;
   align-items: center;
+  @media (max-width: 900px) {
+    flex-direction: column;
+    margin-top: 50px;
+    margin-left: 0;
+  }
 `;
 
 const NavLinkStyle = styled(NavLink)`
@@ -136,6 +141,9 @@ const NavMenu = () => {
                     }}
                   >
                     <Typography
+                      onClick={() => {
+                        navigate("/");
+                      }}
                       sx={{
                         transform: "skewX(30deg)",
                       }}
@@ -186,7 +194,6 @@ const NavMenu = () => {
                   <Typography
                     onClick={() => {
                       navigate("/");
-                      setValue(0);
                     }}
                     sx={{
                       transform: "skewX(30deg)",
@@ -239,103 +246,30 @@ const NavMenu = () => {
         />
 
         <Box
-          sx={{ display: "flex", width: 250 }}
+          sx={{
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            borderTop: "2px solid black",
+            margin: "10px auto",
+          }}
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
-          <Tabs
-            orientation="vertical"
-            sx={{
-              [`& .${tabsClasses.indicator}`]: {
-                height: "100%",
-                borderRadius: "8px",
-                backgroundColor: "rgba(255, 255, 255, .2)",
-              },
-            }}
-            value={value}
-            onChange={handleChange}
-            centered
-          >
+          <NavElemStyle>
             {liveEv ? (
-              <Tab
-                sx={{
-                  textTransform: "initial",
-                  margin: theme.spacing(0, 2),
-                  minWidth: 0,
-                  fontWeight: "normal",
-                  letterSpacing: 0.5,
-                  [`&.${tabClasses.selected}`]: {
-                    color: "#fff",
-                  },
-                  [theme.breakpoints.up("md")]: {
-                    minWidth: 0,
-                  },
-                  borderRadius: "8px",
-                  color: "#ffffff",
-                  display: "flex",
-                }}
-                icon={<IcoLive src={liceIcon} alt="My Icon" />}
-                iconPosition="start"
-                component={Link}
-                to="/liveevents"
-                label="Event"
-              />
+              <NavLinkStyle to="/liveevents">
+                <IcoLive src={liceIcon} alt="My Icon" /> LIVE
+              </NavLinkStyle>
             ) : (
-              <></>
+              ""
             )}
 
-            <Tab
-              sx={{
-                letterSpacing: 0.5,
-                margin: theme.spacing(0, 2),
-                [`&.${tabClasses.selected}`]: {
-                  color: "#fff",
-                },
-                "&:hover": {
-                  borderRadius: "8px",
-                  backgroundColor: "rgba(255, 255, 255, .2)",
-                },
-                color: "#ffffff",
-              }}
-              component={Link}
-              to="/about"
-              label="Rules"
-            />
-            <Tab
-              sx={{
-                letterSpacing: 0.5,
-                margin: theme.spacing(0, 2),
-                [`&.${tabClasses.selected}`]: {
-                  color: "#fff",
-                },
-                "&:hover": {
-                  borderRadius: "8px",
-                  backgroundColor: "rgba(255, 255, 255, .2)",
-                },
-                color: "#ffffff",
-              }}
-              component={Link}
-              to="/about"
-              label="Records"
-            />
-            <Tab
-              sx={{
-                color: "#ffffff",
-              }}
-              component={Link}
-              to="/about"
-              label="About"
-            />
-            <Tab
-              sx={{
-                color: "#ffffff",
-              }}
-              component={Link}
-              to="/racers"
-              label="Racers"
-            />
-          </Tabs>
+            <NavLinkStyle to="/about"> ABOUT</NavLinkStyle>
+            <NavLinkStyle to="/racers">RACERS</NavLinkStyle>
+          </NavElemStyle>
         </Box>
       </Drawer>
     </>
