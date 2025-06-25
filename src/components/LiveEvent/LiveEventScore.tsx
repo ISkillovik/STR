@@ -162,7 +162,9 @@ const LiveEventScore = (props: Props) => {
                       onClick={() => toggleOpen(key)}
                     >
                       <Column>{key}</Column>
-                      <Column>{value.racerName}</Column>
+                      <Column style={{ width: "80%" }}>
+                        {value.racerName}
+                      </Column>
                       <Column>{value.point}</Column>
                     </RacerDiv>
 
