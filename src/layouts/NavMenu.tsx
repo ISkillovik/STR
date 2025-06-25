@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import liceIcon from "../icon/live-stream.png";
@@ -15,11 +15,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Drawer, { drawerClasses } from "@mui/material/Drawer";
-import Tab, { tabClasses } from "@mui/material/Tab";
-import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "../firebase";
-import CircularProgress from "@mui/material/CircularProgress";
 
 const IcoLive = styled.img`
   width: 50px;
@@ -72,8 +69,6 @@ const NavLinkStyle = styled(NavLink)`
 `;
 
 const NavMenu = () => {
-  const [value, setValue] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [liveEv, setLiveEv] = useState<boolean | undefined>();
   const theme = useTheme();
@@ -83,6 +78,8 @@ const NavMenu = () => {
     setDrawerOpen(open);
   };
 
+  console.log(isMobile);
+
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
       if (docSnapshot.exists()) {
@@ -90,15 +87,11 @@ const NavMenu = () => {
       } else {
         console.log("Document does not exist");
       }
-      setLoading(false); // ✅ снимаем загрузку
     });
 
     return () => unsubscribe(); // очистка подписки
   }, []);
 
-  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
   return (
     <>
       <AppBar position="static">

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { DataRacers } from "../../models";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const ExtraContent = styled(motion.div)`
   width: 100%;
@@ -86,6 +87,8 @@ const LiveEventScore = (props: Props) => {
   const [data, setData] = useState<DataRacers>();
   const [dataType, setDataType] = useState<string>();
   const [openKey, setOpenKey] = useState<string | null>(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const checkEventPointsType = () => {
     if (dataType && dataType === "drag") {
@@ -127,58 +130,107 @@ const LiveEventScore = (props: Props) => {
   };
   return (
     <div style={{ width: "95%", margin: "0 auto", minHeight: "500px" }}>
-      <ExampDetails>
-        <Column>No</Column>
-        <Column>Name</Column>
-        <Column>Car</Column>
-        <Column>Engin</Column>
-        {checkEventPointsType()}
-      </ExampDetails>
+      {isMobile ? (
+        <ExampDetails>
+          <Column>No</Column>
+          <Column>Name</Column>
+
+          {checkEventPointsType()}
+        </ExampDetails>
+      ) : (
+        <ExampDetails>
+          <Column>No</Column>
+          <Column>Name</Column>
+          <Column>Car</Column>
+          <Column>Engin</Column>
+          {checkEventPointsType()}
+        </ExampDetails>
+      )}
 
       {data ? (
         <AnimatePresence>
           <RacersListUL>
-            {sortedEntries.map(([key, value]) => (
-              <li key={key}>
-                <RacerDiv
-                  layout
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4 }}
-                  onClick={() => toggleOpen(key)}
-                >
-                  <Column>{key}</Column>
-                  <Column>{value.racerName}</Column>
-                  <Column>{value.carMark}</Column>
-                  <Column>{value.motor}</Column>
-                  <Column>{value.point}</Column>
-                </RacerDiv>
-
-                <AnimatePresence>
-                  {openKey === key && (
-                    <ExtraContent
+            {isMobile
+              ? sortedEntries.map(([key, value]) => (
+                  <li key={key}>
+                    <RacerDiv
                       layout
-                      key="extra"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                      onClick={() => toggleOpen(key)}
                     >
-                      <p>
-                        <strong>Цвет:</strong> {value.carColor}
-                      </p>
-                      <p>
-                        <strong>Номер:</strong> {value.carNum}
-                      </p>
-                      <p>
-                        <strong>Группа:</strong> {value.group}
-                      </p>
-                    </ExtraContent>
-                  )}
-                </AnimatePresence>
-              </li>
-            ))}
+                      <Column>{key}</Column>
+                      <Column>{value.racerName}</Column>
+                      <Column>{value.point}</Column>
+                    </RacerDiv>
+
+                    <AnimatePresence>
+                      {openKey === key && (
+                        <ExtraContent
+                          layout
+                          key="extra"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <p>
+                            <strong>Цвет:</strong> {value.carColor}
+                          </p>
+                          <p>
+                            <strong>Номер:</strong> {value.carNum}
+                          </p>
+                          <p>
+                            <strong>Группа:</strong> {value.group}
+                          </p>
+                        </ExtraContent>
+                      )}
+                    </AnimatePresence>
+                  </li>
+                ))
+              : sortedEntries.map(([key, value]) => (
+                  <li key={key}>
+                    <RacerDiv
+                      layout
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                      onClick={() => toggleOpen(key)}
+                    >
+                      <Column>{key}</Column>
+                      <Column>{value.racerName}</Column>
+                      <Column>{value.carMark}</Column>
+                      <Column>{value.motor}</Column>
+                      <Column>{value.point}</Column>
+                    </RacerDiv>
+
+                    <AnimatePresence>
+                      {openKey === key && (
+                        <ExtraContent
+                          layout
+                          key="extra"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <p>
+                            <strong>Цвет:</strong> {value.carColor}
+                          </p>
+                          <p>
+                            <strong>Номер:</strong> {value.carNum}
+                          </p>
+                          <p>
+                            <strong>Группа:</strong> {value.group}
+                          </p>
+                        </ExtraContent>
+                      )}
+                    </AnimatePresence>
+                  </li>
+                ))}
           </RacersListUL>
         </AnimatePresence>
       ) : (
