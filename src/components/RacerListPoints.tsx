@@ -93,7 +93,27 @@ const RacerListPoints = (props: Props) => {
                   handleUpdateRacersPoints(obj);
                 }}
               >
-                SET
+                + Point
+              </button>
+              <button
+                onClick={() => {
+                  const obj: any = {
+                    [key]: { point: value.point - point[key]! },
+                  };
+                  handleUpdateRacersPoints(obj);
+                }}
+              >
+                - Point
+              </button>
+              <button
+                onClick={() => {
+                  const obj: any = {
+                    [key]: { point: point[key] },
+                  };
+                  handleUpdateRacersPoints(obj);
+                }}
+              >
+                SET Point
               </button>
             </RacerDiv>
           ))

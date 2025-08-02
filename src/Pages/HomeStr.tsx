@@ -12,6 +12,7 @@ const SponsorIco = styled.img`
 const IcoDiv = styled.div`
   transition: 1s ease;
   margin: 50px 50px;
+  cursor: pointer;
   :hover {
     -webkit-transform: scale(1.2);
     -ms-transform: scale(1.2);
@@ -72,16 +73,32 @@ const HomeStr = () => {
         </TransBoxBorder>
       </TransBox>
       <SponsorIcoContainer>
-        <IcoDiv>
+        <IcoDiv
+          onClick={() => {
+            window.open("https://www.fia.com/", "_blank");
+          }}
+        >
           <SponsorIco src={IcoFia} alt="FIA" />
         </IcoDiv>
-        <IcoDiv>
+        <IcoDiv
+          onClick={() => {
+            window.open("https://www.autodrive.am/", "_blank");
+          }}
+        >
           <SponsorIco src={IcoDrive} alt="AutoDrive" />
         </IcoDiv>
-        <IcoDiv>
+        <IcoDiv
+          onClick={() => {
+            window.open("https://dzilli.com/", "_blank");
+          }}
+        >
           <SponsorIco src={IcoDzz} alt="Dz" />
         </IcoDiv>
-        <IcoDiv>
+        <IcoDiv
+          onClick={() => {
+            window.open("https://str-racing.net/", "_blank");
+          }}
+        >
           <SponsorIco src={IcoStrRac} alt="StrR" />
         </IcoDiv>
       </SponsorIcoContainer>

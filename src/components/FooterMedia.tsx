@@ -42,7 +42,7 @@ const FooterContainerMedia = styled.div`
 
 const FooterContainerMediaMain = styled.div`
   position: relative;
-
+  cursor: pointer;
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
@@ -63,7 +63,14 @@ type Props = {};
 const FooterMedia = (props: Props) => {
   return (
     <MediaMain>
-      <FooterContainerMediaMain>
+      <FooterContainerMediaMain
+        onClick={() => {
+          window.open(
+            "https://www.facebook.com/people/STR/100029017377263/#",
+            "_blank"
+          );
+        }}
+      >
         <FooterContainerMedia>
           <FaFacebookFIco />
           <h3>Facebook</h3>
@@ -71,7 +78,14 @@ const FooterMedia = (props: Props) => {
         </FooterContainerMedia>
       </FooterContainerMediaMain>
 
-      <FooterContainerMediaMain>
+      <FooterContainerMediaMain
+        onClick={() => {
+          window.open(
+            "https://www.youtube.com/channel/UClxv8fh2FEz7zGVE2QiQ3cg",
+            "_blank"
+          );
+        }}
+      >
         <FooterContainerMedia>
           <TfiYoutubeIco />
           <h3>Youtube</h3>
@@ -79,7 +93,11 @@ const FooterMedia = (props: Props) => {
         </FooterContainerMedia>
       </FooterContainerMediaMain>
 
-      <FooterContainerMediaMain>
+      <FooterContainerMediaMain
+        onClick={() => {
+          window.open("https://www.instagram.com/str.club/", "_blank");
+        }}
+      >
         <FooterContainerMedia>
           <IoLogoInstagramIco />
           <h3>Instagram</h3>

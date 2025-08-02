@@ -92,7 +92,7 @@ const LiveEventScore = (props: Props) => {
 
   const checkEventPointsType = () => {
     if (dataType && dataType === "drag") {
-      return <Column>Best Time</Column>;
+      <Column>Best Time</Column>;
     } else {
       return <Column>Points</Column>;
     }
@@ -100,7 +100,7 @@ const LiveEventScore = (props: Props) => {
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
       if (docSnapshot.exists()) {
-        return setDataType(docSnapshot.data().rules);
+        setDataType(docSnapshot.data().rules);
       } else {
         console.log("Document does not exist");
       }
@@ -110,15 +110,15 @@ const LiveEventScore = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
+    const xuy = onSnapshot(doc(db, "Admin", "event"), (docSnapshot) => {
       if (docSnapshot.exists()) {
-        return setData(docSnapshot.data().eventRacers);
+        setData(docSnapshot.data().eventRacers);
       } else {
         console.log("Document does not exist");
       }
     });
 
-    return () => unsubscribe();
+    return () => xuy();
   }, []);
 
   const sortedEntries = data
