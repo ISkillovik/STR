@@ -6,15 +6,8 @@ import About from "./Pages/About";
 import LiveEvents from "./Pages/LiveEvents";
 import Racers from "./Pages/Racers";
 import "./App.css";
-import { useState } from "react";
-
-type MainLayoutProps = {
-  isevent: string; // или boolean, или другой тип
-};
 
 function App() {
-  const [isevent, setIsevent] = useState("false");
-  function eventFunc(): void {}
   return (
     <BrowserRouter>
       <div className="App">
